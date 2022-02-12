@@ -5,7 +5,7 @@ This repository hosts bare minimum artifacts (configurations and tests) to get s
 
 ### Prerequisites
 
-- x86 Ubuntu 20.04 distribution
+- x86-64 Ubuntu 20.04 Server
 - At least 2 CPU cores, 4GB RAM and 64GB HDD
 - Docker (https://docs.docker.com/engine/install/ubuntu/)
 - Go 1.17+ (https://go.dev/doc/install)
