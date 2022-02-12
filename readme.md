@@ -25,7 +25,7 @@ This repository hosts bare minimum artifacts (configurations and tests) to tinke
     sudo ./containerlab deploy --topo ixia-c-one-ceos.clab.yaml
     ```
 
-    > If this step fails, most probably you do not have a docker image for ceos. 
+    > If this step fails, most probably you do not have the ceos docker image. 
     > Please obtain the image from https://www.arista.com/en/support/software-download and re-tag it as specified in .yaml.
 
 - Run Tests
