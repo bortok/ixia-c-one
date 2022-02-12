@@ -1,7 +1,7 @@
 # ixia-c-one
 
-`ixia-c-one` is a re-packaged (as single-container app) flavor of [ixia-c](https://github.com/open-traffic-generator/ixia-c).  
-This repository hosts bare minimum artifacts (configurations and tests) to tinker with [containerlab](https://containerlab.srlinux.dev/) and `ixia-c-one`.
+`ixia-c-one` is a re-packaged (as a single-container) flavor of multi-container application [ixia-c](https://github.com/open-traffic-generator/ixia-c).  
+This repository hosts bare minimum artifacts (configurations and tests) to get started with [containerlab](https://containerlab.srlinux.dev/) and `ixia-c-one`.
 
 ### Prerequisites
 
