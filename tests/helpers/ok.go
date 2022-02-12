@@ -57,8 +57,7 @@ func (client *ApiClient) FlowMetricsOk(expectedState ExpectedState) (bool, error
 	}
 
 	PrintMetricsTable(&MetricsTableOpts{
-		ClearPrevious: false,
-		FlowMetrics:   fMetrics,
+		FlowMetrics: fMetrics,
 	})
 
 	expected := true
@@ -84,8 +83,7 @@ func (client *ApiClient) AllBgp4SessionUp(expectedState ExpectedState) (bool, er
 	}
 
 	PrintMetricsTable(&MetricsTableOpts{
-		ClearPrevious: false,
-		Bgpv4Metrics:  dMetrics,
+		Bgpv4Metrics: dMetrics,
 	})
 
 	expected := true
@@ -111,8 +109,7 @@ func (client *ApiClient) AllBgp6SessionUp(expectedState ExpectedState) (bool, er
 	}
 
 	PrintMetricsTable(&MetricsTableOpts{
-		ClearPrevious: false,
-		Bgpv6Metrics:  dMetrics,
+		Bgpv6Metrics: dMetrics,
 	})
 
 	expected := true
@@ -136,8 +133,7 @@ func (client *ApiClient) AllIsisSessionUp(expectedState ExpectedState) (bool, er
 		return false, err
 	}
 	PrintMetricsTable(&MetricsTableOpts{
-		ClearPrevious: false,
-		IsisMetrics:   dMetrics,
+		IsisMetrics: dMetrics,
 	})
 	expected := true
 	for _, d := range dMetrics.Items() {

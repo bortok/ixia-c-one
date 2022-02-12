@@ -17,9 +17,6 @@ import (
 )
 
 func TestBGPRouteInstall(t *testing.T) {
-	// helpers.ConfigDUTs(map[string]string{"arista1": "../resources/dutconfig/bgp_route_install/set_dut.txt"})
-	// defer helpers.ConfigDUTs(map[string]string{"arista1": "../resources/dutconfig/bgp_route_install/unset_dut.txt"})
-
 	client, err := helpers.NewClient(otgHttpLocation)
 	if err != nil {
 		t.Fatal(err)

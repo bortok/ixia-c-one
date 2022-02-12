@@ -1,5 +1,6 @@
 package helpers
 
 const (
-	optsDebug = false
+	optsDebug         = false
+	optsClearPrevious = false
 )
