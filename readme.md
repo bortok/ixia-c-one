@@ -10,8 +10,8 @@
     cd tests
     # modify hostnames of ixia-c-one (otg) or ceos (dut) if there was a change in .clab.yaml
     vi const.go
-    # modify test contents if needed
+    # modify test contents if needed and note the name of Test* function
     vi bgp_route_install_test.go
-    # start the test
+    # run the test using the name noted above
     go test -run TestBGPRouteInstall
     ```
