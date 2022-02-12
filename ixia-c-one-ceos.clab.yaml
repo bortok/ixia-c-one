@@ -1,0 +1,22 @@
+name: ixia-c
+
+topology:
+  nodes:
+    ixia-c-one:
+      kind: ixia-c-one
+      image: ghcr.io/open-traffic-generator/ixia-c-one:0.0.1-2610
+      ports:
+        - 443:443       # for HTTP API
+        - 50051:50051   # for gNMI
+
+    ceos:
+      kind: ceos
+      image: ceos:4.26.1F                   # obtain from https://www.arista.com/en/support/software-download
+      startup-config: enable_ssh_ceos.cfg   # to enable password-less SSH
+      enforce-startup-config: true
+      ports:
+        - 36001:22    # for SSH
+
+  links:
+    - endpoints: ["ixia-c-one:eth1", "ceos:eth1"]
+    - endpoints: ["ixia-c-one:eth2", "ceos:eth2"]
