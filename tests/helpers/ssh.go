@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"strings"
 
 	"golang.org/x/crypto/ssh"
 )
@@ -127,4 +128,35 @@ func (c *SshClient) PushDutConfigFile(location string) (string, error) {
 	}
 
 	return c.Exec("enable\nconfig terminal\n" + string(bytes))
+}
+
+func (c *SshClient) GetInterface(name string) (*DutInterface, error) {
+	ifc := DutInterface{}
+	out, err := c.Exec("show interface " + name)
+	if err != nil {
+		return nil, err
+	}
+
+	ifc.Name = name
+	for _, line := range strings.Split(out, "\n") {
+		if strings.Contains(line, "Hardware is Ethernet") {
+			for _, word := range strings.Split(line, " ") {
+				if strings.Contains(word, ".") {
+					ifc.MacAddr = fmt.Sprintf(
+						"%s:%s:%s:%s:%s:%s",
+						word[0:2], word[2:4], word[5:7], word[7:9], word[10:12],
+						word[12:14],
+					)
+				}
+			}
+		} else if strings.Contains(line, "Internet address") {
+			for _, word := range strings.Split(line, " ") {
+				if strings.Contains(word, ".") {
+					ifc.Ipv4Addr = strings.Split(word, "/")[0]
+				}
+			}
+		}
+	}
+
+	return &ifc, nil
 }
