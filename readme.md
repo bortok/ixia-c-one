@@ -13,7 +13,13 @@ This repository hosts bare minimum artifacts (configurations and tests) to get s
 
 ### Get Started
 
-- Get containerlab with added support for ixia-c-one.
+- Clone this repository
+
+    ```sh
+    git clone https://github.com/open-traffic-generator/ixia-c-one.git && cd ixia-c-one
+    ```
+
+- Get containerlab with newly introduced support for ixia-c-one plugin
 
     ```sh
     curl -kLO https://github.com/open-traffic-generator/ixia-c-one/releases/download/v0.0.1-2610/containerlab
