@@ -44,7 +44,7 @@ This repository hosts bare minimum artifacts (configurations and tests) to get s
     vi const.go
     
     # Modify contents of test contents for L2 forwarding test with DUT acting as a switch if needed
-    # and not the name of Test* function.
+    # and note the name of Test* function.
     vi l2_traffic_test.go
     # Run the test using the name noted above. 
     go test -run=TestL2Traffic -v | tee out.log
