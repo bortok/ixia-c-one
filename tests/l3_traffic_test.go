@@ -23,7 +23,7 @@ func TestL3Traffic(t *testing.T) {
 
 	config, expected := trafficConfigL3(client)
 
-	// DUT configurationS
+	// ceos configurations
 	dut, err := helpers.NewSshClient(dutSshLocation, "admin", "")
 	if err != nil {
 		t.Fatal(err)
@@ -35,15 +35,25 @@ func TestL3Traffic(t *testing.T) {
 	}
 	defer dut.PushDutConfigFile("configs/l3_traffic/unset_dut.txt")
 
-	// Set the eth destination in configuration from retrieved mac of DUT interface interfacing ixiac Tx port
+	// Verify the static route configured in ceos (through set_dut.txt in step above) is reflected in ceos
+	helpers.WaitFor(t, func() (bool, error) { return dut.CheckRouteInstalled("50.50.50.0/24", "Ethernet2") }, nil)
+
+	// Set the eth destination in OTG config from retrieved mac of ceos interface interfacing ixia-c-one Tx interface
 	ifc, err := dut.GetInterface("Ethernet1")
 	if err != nil {
 		t.Error(err)
 	}
 	config.Flows().Items()[0].Packet().Items()[0].Ethernet().Dst().SetValue(ifc.MacAddr)
 
-	// Set ipv4 address in ixiac-te interface of Rx ports
-	// (as Traffic-Engine doesn't reply to ARP, by doing this linux will reply to the ARP.)
+	// We need to configure the gateway IP which needs to respond to DUT ARP Requests
+	// for DUT to be able to forward the traffic with correct Dest MAC to Rx port
+	// @param1 : Name of the deployed ixia-c-one container.
+	// @param2 : The Rx port which is receiving the traffic.
+	// @param3 : The IP adddress of the Rx port which will act as the gateway for connected DUT interface
+	//           and respond to ARP Requests from the DUT so that DUT can correctly fill the Dest MAC
+	//           and forward the traffic PDU to the Rx test port. This should be in same subnet as the
+	//           connected DUT IPv4 address.
+	// @param4 : Mask for param3. Should match the connected DUT IPv4 address prefix length.
 	if err := helpers.SetTrafficEndPointV4Config(
 		"clab-ixia-c-ixia-c-one",
 		"eth2",
@@ -63,7 +73,6 @@ func TestL3Traffic(t *testing.T) {
 	}
 
 	helpers.WaitFor(t, func() (bool, error) { return client.FlowMetricsOk(expected) }, nil)
-
 }
 
 func trafficConfigL3(client *helpers.ApiClient) (gosnappi.Config, helpers.ExpectedState) {

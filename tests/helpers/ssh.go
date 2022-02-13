@@ -160,3 +160,22 @@ func (c *SshClient) GetInterface(name string) (*DutInterface, error) {
 
 	return &ifc, nil
 }
+
+func (c *SshClient) CheckRouteInstalled(ipMask string, ifcName string) (bool, error) {
+	out, err := c.Exec("show ip route ")
+	if err != nil {
+		return false, err
+	}
+
+	for _, line := range strings.Split(out, "\n") {
+		if strings.Contains(line, ifcName) {
+			for _, word := range strings.Split(line, " ") {
+				if strings.Contains(word, ipMask) {
+					return true, nil
+				}
+			}
+		}
+	}
+
+	return false, nil
+}

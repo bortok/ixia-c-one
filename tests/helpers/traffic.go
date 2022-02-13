@@ -2,16 +2,16 @@ package helpers
 
 import (
 	"fmt"
+	"os/exec"
 )
 
 func pushConfigToEndPoint(containerName string, configCmd string) error {
 	bashcmd := fmt.Sprintf("docker exec %s bash %s", containerName, configCmd)
-	//cmd := exec.Command("/bin/sh", "-c", bashcmd)
-	fmt.Println("CMD fired: ", bashcmd)
-	// _, err := cmd.CombinedOutput()
-	// if err != nil {
-	// 	return err
-	// }
+	cmd := exec.Command("/bin/sh", "-c", bashcmd)
+	_, err := cmd.CombinedOutput()
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
