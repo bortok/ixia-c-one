@@ -2,7 +2,7 @@
 Topology:
 IXIA (40.40.40.0/24) -----> ARISTA ------> IXIA (50.50.50.0/24)
 Flows:
-- v4: 40.40.40.1 -> 50.50.50.1
+- tcp: 40.40.40.1 -> 50.50.50.1
 */
 
 package tests
@@ -57,7 +57,7 @@ func trafficConfigL2(client *helpers.ApiClient) (gosnappi.Config, helpers.Expect
 	port2 := config.Ports().Add().SetName("ixia-c-port2").SetLocation(otgPort2Location)
 
 	// OTG traffic configuration
-	f1 := config.Flows().Add().SetName("p1.v4.p2")
+	f1 := config.Flows().Add().SetName("p1.tcp.p2")
 	f1.Metrics().SetEnable(true)
 	f1.TxRx().Port().
 		SetTxName(port1.Name()).
@@ -71,6 +71,9 @@ func trafficConfigL2(client *helpers.ApiClient) (gosnappi.Config, helpers.Expect
 	v4 := f1.Packet().Add().Ipv4()
 	v4.Src().SetValue("40.40.40.1")
 	v4.Dst().Increment().SetStart("50.50.50.1").SetStep("0.0.0.1").SetCount(5)
+	tc := f1.Packet().Add().Tcp()
+	tc.SrcPort().Increment().SetStart(3025).SetStep(2).SetCount(10)
+	tc.DstPort().Decrement().SetStart(8070).SetStep(2).SetCount(10)
 
 	expected := helpers.ExpectedState{
 		Flow: map[string]helpers.ExpectedFlowMetrics{
