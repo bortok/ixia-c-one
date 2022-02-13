@@ -42,9 +42,17 @@ This repository hosts bare minimum artifacts (configurations and tests) to get s
     cd tests
     # modify hostnames of ixia-c-one (otg) or ceos (dut) if there was a change in .clab.yaml
     vi const.go
-    # modify test contents if needed and note the name of Test* function
+    
+    # Modify contents of test contents for L2 forwarding test with DUT acting as a switch if needed
+    # and not the name of Test* function.
+    vi l2_traffic_test.go
+    # Run the test using the name noted above. 
+    go test -run=TestL2Traffic -v | tee out.log
+    
+    # Modify test contents of L3 forwarding test with DUT acting as BGP router if needed and note the
+    # name of Test* function
     vi bgp_route_install_test.go
-    # run the test using the name noted above
+    # Run the test using the name noted above
     go test -run TestBGPRouteInstall
     ```
 
