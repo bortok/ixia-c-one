@@ -25,6 +25,19 @@ func TestL2Traffic(t *testing.T) {
 
 	config, expected := trafficConfigL2(client)
 
+	// Bring the DUT to L2 settings
+	dut, err := helpers.NewSshClient(dutSshLocation, "admin", "")
+	if err != nil {
+		t.Fatal(err)
+	}
+	defer dut.Close()
+
+	if _, err := dut.PushDutConfigFile("configs/l2_traffic/set_dut.txt"); err != nil {
+		t.Fatal(err)
+	}
+	defer dut.PushDutConfigFile("configs/l2_traffic/unset_dut.txt")
+
+	// Send OTG traffic
 	if err := client.SetConfig(config); err != nil {
 		t.Fatal(err)
 	}

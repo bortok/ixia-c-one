@@ -1,0 +1,8 @@
+interface Ethernet1
+    no switchport
+    no spanning-tree portfast
+!
+interface Ethernet2
+    no switchport
+    no spanning-tree portfast
+!
