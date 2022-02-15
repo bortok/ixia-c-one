@@ -47,7 +47,14 @@ This repository hosts bare minimum artifacts (configurations and tests) to get s
     # and note the name of Test* function.
     vi l2_traffic_test.go
     # Run the test using the name noted above. 
-    go test -run=TestL2Traffic -v | tee out.log
+    go test -run=TestL2Traffic
+
+    # Modify test contents of L3 forwarding test with DUT acting as switch if needed and note the
+    # name of Test* function
+    vi l3_traffic_test.go
+    # Run the test using the name noted above 
+    # (note: this test needs to be run either with sudo privilege or docker configured in sudo group)
+    go test -run TestL3Traffic
     
     # Modify test contents of L3 forwarding test with DUT acting as BGP router if needed and note the
     # name of Test* function
