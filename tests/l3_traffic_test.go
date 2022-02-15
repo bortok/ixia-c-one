@@ -8,6 +8,7 @@ Flows:
 package tests
 
 import (
+	"log"
 	"testing"
 
 	"github.com/open-traffic-generator/ixia-c-one/tests/helpers"
@@ -59,6 +60,7 @@ func TestL3Traffic(t *testing.T) {
 		"eth2",
 		"12.12.12.2",
 		24); err != nil {
+		log.Printf("Most probably docker is not set up to run in sudo mode. Run the test in sudo mode or configure docker in sudo group.\n")
 		t.Fatal(err)
 	}
 	defer helpers.UnSetTrafficEndPointV4Config("clab-ixia-c-ixia-c-one", "eth2", "12.12.12.2", 24)

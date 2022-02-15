@@ -167,6 +167,7 @@ func (c *SshClient) CheckRouteInstalled(ipMask string, ifcName string) (bool, er
 		return false, err
 	}
 
+	log.Printf("show ip route in DUT:\n %s", out)
 	for _, line := range strings.Split(out, "\n") {
 		if strings.Contains(line, ifcName) {
 			for _, word := range strings.Split(line, " ") {
