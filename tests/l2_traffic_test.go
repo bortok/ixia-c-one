@@ -14,8 +14,6 @@ import (
 	"github.com/open-traffic-generator/snappi/gosnappi"
 )
 
-// This test is verified with ceos which by default acts as a switch and hence no configuration
-// on DUT for L2 traffic test
 func TestL2Traffic(t *testing.T) {
 	client, err := helpers.NewClient(otgHttpLocation)
 	if err != nil {
