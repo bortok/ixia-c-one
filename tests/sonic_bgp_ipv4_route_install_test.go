@@ -35,7 +35,8 @@ func TestSONiCIPv4BGPRouteInstall(t *testing.T) {
 
 	helpers.WaitFor(t, func() (bool, error) { return client.AllBgp4SessionUp(expected) }, nil)
 
-	if err := client.StartTransmit(nil); err != nil {
+	ethernetNames := []string{"dutPort1.eth", "dutPort2.eth"}
+	if _, err := client.GetIPv4NeighborsStates(ethernetNames); err != nil {
 		t.Fatal(err)
 	}
 

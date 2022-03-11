@@ -35,6 +35,11 @@ func TestSONiCIPv6BGPRouteInstall(t *testing.T) {
 
 	helpers.WaitFor(t, func() (bool, error) { return client.AllBgp6SessionUp(expected) }, nil)
 
+	ethernetNames := []string{"dutPort1.eth", "dutPort2.eth"}
+	if _, err := client.GetIPv6NeighborsStates(ethernetNames); err != nil {
+		t.Fatal(err)
+	}
+
 	if err := client.StartTransmit(nil); err != nil {
 		t.Fatal(err)
 	}
@@ -120,6 +125,7 @@ func bgpRouteInstallConfigSONiCIPv6(client *helpers.ApiClient) (gosnappi.Config,
 	f2.Duration().FixedPackets().SetPackets(1000)
 	e2 := f2.Packet().Add().Ethernet()
 	e2.Src().SetValue(dutPort1Eth.Mac())
+	//e2.Dst().SetValue("02:42:ac:14:14:02")
 	e2.Dst().SetValue("00:00:00:00:00:00")
 	v6 := f2.Packet().Add().Ipv6()
 	v6.Src().SetValue("0:40:40:40::1")
@@ -135,6 +141,7 @@ func bgpRouteInstallConfigSONiCIPv6(client *helpers.ApiClient) (gosnappi.Config,
 	f2d.Duration().FixedPackets().SetPackets(1000)
 	e2d := f2d.Packet().Add().Ethernet()
 	e2d.Src().SetValue(dutPort1Eth.Mac())
+	//	e2d.Dst().SetValue("02:42:ac:14:14:02")
 	e2d.Dst().SetValue("00:00:00:00:00:00")
 	v6d := f2d.Packet().Add().Ipv6()
 	v6d.Src().SetValue("0:40:40:40::1")
