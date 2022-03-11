@@ -41,6 +41,12 @@ vtysh
 configure
 frr defaults traditional
 ipv6 forwarding
+interface Ethernet0
+  no ipv6 nd suppress-ra
+  exit
+interface Ethernet4
+  no ipv6 nd suppress-ra
+  exit
 router bgp 3333
   bgp router-id 3.3.3.3
   neighbor 1.1.1.1 remote-as 1111
@@ -91,4 +97,5 @@ exit
 
 ```sh
 sudo containerlab destroy --topo ixia-c-one-sonic.clab.yaml --cleanup
+sudo docker volume prune
 ```
