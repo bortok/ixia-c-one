@@ -74,7 +74,6 @@ exit
 exit
 ````
 
-
 5. Run Tests
 
     ```sh
@@ -91,11 +90,22 @@ exit
     go test -run TestSONiCIPv6BGPRouteInstall
     ```
 
-
-
 6. Destroy Topology
 
 ```sh
 sudo containerlab destroy --topo ixia-c-one-sonic.clab.yaml --cleanup
 sudo docker volume prune
 ```
+
+## Troubleshooting Ixia-c-one
+
+To access ixia-c-one logs as the tests are being executed, use
+
+  ```Shell
+  docker exec -it clab-ixia-c-ixia-c-one bash
+  docker ps
+  # For example, use this command to follow logs on data plane operations of `eth1` test port
+  docker logs --follow ixia-c-port-dp-eth1
+  # Another example, use this command to follow logs on control plane operations of `eth2` test port
+  docker logs --follow ixia-c-port-cp-eth2
+  ````
