@@ -3,7 +3,7 @@
 `ixia-c-one` is a re-packaged (as a single-container) flavor of multi-container application [ixia-c](https://github.com/open-traffic-generator/ixia-c).  
 This repository hosts bare minimum artifacts (configurations and tests) to get started with [containerlab](https://containerlab.srlinux.dev/) and `ixia-c-one`.
 
-### Prerequisites
+## Prerequisites
 
 - x86-64 Ubuntu 20.04 Server
 - At least 2 CPU cores, 4GB RAM and 64GB HDD
@@ -11,7 +11,7 @@ This repository hosts bare minimum artifacts (configurations and tests) to get s
 - Go 1.17+ (https://go.dev/doc/install)
 - curl
 
-### Get Started
+## Getting Started
 
 - Clone this repository
 
@@ -25,6 +25,10 @@ This repository hosts bare minimum artifacts (configurations and tests) to get s
     curl -kLO https://github.com/open-traffic-generator/ixia-c-one/releases/download/v0.0.1-2610/containerlab
     chmod +x containerlab
     ```
+
+## Test Examples
+
+### Arista cEOS Layer2 Traffic and BGP v4/v6 Tests
 
 - Create Topology
 
@@ -61,3 +65,9 @@ This repository hosts bare minimum artifacts (configurations and tests) to get s
     ```sh
     sudo ./containerlab destroy --topo ixia-c-one-ceos.clab.yaml
     ```
+
+### More Examples
+
+ * [SONiC BGP v4/v6 Tests](examples/SONiC.md)
+
+
