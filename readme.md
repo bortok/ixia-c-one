@@ -64,6 +64,7 @@ This repository hosts bare minimum artifacts (configurations and tests) to get s
 
     ```sh
     sudo ./containerlab destroy --topo ixia-c-one-ceos.clab.yaml
+    sudo docker volume prune
     ```
 
 ### More Examples
