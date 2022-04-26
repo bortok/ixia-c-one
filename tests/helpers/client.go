@@ -493,3 +493,37 @@ func (client *ApiClient) GetPortCapture(portName string) ([]byte, error) {
 
 	return res, nil
 }
+
+func (client *ApiClient) GetIPv4NeighborsStates(ethernetNames []string) (gosnappi.StatesResponseNeighborsv4StateIter, error) {
+	req := client.Api().NewStatesRequest()
+	req.Ipv4Neighbors().SetEthernetNames(ethernetNames)
+
+	res, err := client.GetStates(req)
+	if err != nil {
+		return nil, err
+	}
+
+	PrintStatesTable(&StatesTableOpts{
+		ClearPrevious:       false,
+		Ipv4NeighborsStates: res.Ipv4Neighbors(),
+	})
+
+	return res.Ipv4Neighbors(), nil
+}
+
+func (client *ApiClient) GetIPv6NeighborsStates(ethernetNames []string) (gosnappi.StatesResponseNeighborsv6StateIter, error) {
+	req := client.Api().NewStatesRequest()
+	req.Ipv6Neighbors().SetEthernetNames(ethernetNames)
+
+	res, err := client.GetStates(req)
+	if err != nil {
+		return nil, err
+	}
+
+	PrintStatesTable(&StatesTableOpts{
+		ClearPrevious:       false,
+		Ipv6NeighborsStates: res.Ipv6Neighbors(),
+	})
+
+	return res.Ipv6Neighbors(), nil
+}

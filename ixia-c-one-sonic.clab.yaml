@@ -1,0 +1,20 @@
+name: ixia-c
+
+topology:
+  nodes:
+    ixia-c-one:
+      kind: ixia-c-one
+      image: ghcr.io/open-traffic-generator/ixia-c-one:0.0.1-2610
+      ports:
+        - 443:443       # for HTTP API
+        - 50051:50051   # for gNMI
+
+    sonic:
+      kind: sonic-vs
+      image: netreplica/docker-sonic-vs
+      ports:
+        - 36001:22    # for SSH
+
+  links:
+    - endpoints: ["ixia-c-one:eth1", "sonic:eth1"]
+    - endpoints: ["ixia-c-one:eth2", "sonic:eth2"]
