@@ -6,7 +6,7 @@ topology:
       kind: keysight_ixia-c-one
       image: ghcr.io/open-traffic-generator/ixia-c-one:latest
       ports:
-        - 443:443       # for HTTP API
+        - 8443:8443     # for HTTP API
         - 50051:50051   # for gNMI
 
     ceos:
