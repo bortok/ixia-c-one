@@ -3,8 +3,8 @@ name: ixia-c
 topology:
   nodes:
     ixia-c-one:
-      kind: ixia-c-one
-      image: ghcr.io/open-traffic-generator/ixia-c-one:0.0.1-2610
+      kind: keysight_ixia-c-one
+      image: ghcr.io/open-traffic-generator/ixia-c-one:latest
       ports:
         - 443:443       # for HTTP API
         - 50051:50051   # for gNMI

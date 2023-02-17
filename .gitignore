@@ -3,3 +3,4 @@
 /containerlab
 tests/out.log
 .DS_Store
+*.bak
